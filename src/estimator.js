@@ -36,7 +36,7 @@ const impact = ({
     0.02 * infectionsByRequestedTime
   );
 
-  const dollarsInFlight = Math.floor((
+  const dollarsInFlight = Math.trunc((
     infectionsByRequestedTime
     * avgDailyIncomeInUSD
     * avgDailyIncomePopulation) / 30);
@@ -78,7 +78,7 @@ const severeImpact = ({
     0.02 * infectionsByRequestedTime
   );
 
-  const dollarsInFlight = Math.floor((
+  const dollarsInFlight = Math.trunc((
     infectionsByRequestedTime
     * avgDailyIncomeInUSD
     * avgDailyIncomePopulation) / 30);
