@@ -29,16 +29,17 @@ const impact = ({
   const hospitalBedsByRequestedTime = Math.trunc(
     totalHospitalBeds * 0.35 - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = Math.trunc(
+  const casesForICUByRequestedTime = Math.floor(
     0.05 * infectionsByRequestedTime
   );
-  const casesForVentilatorsByRequestedTime = Math.trunc(
+  const casesForVentilatorsByRequestedTime = Math.floor(
     0.02 * infectionsByRequestedTime
   );
 
-  const dollarsInFlight = (infectionsByRequestedTime
+  const dollarsInFlight = Math.floor((
+    infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / 30;
+    * avgDailyIncomePopulation) / 30);
 
   return {
     currentlyInfected: infected,
@@ -70,16 +71,17 @@ const severeImpact = ({
   const hospitalBedsByRequestedTime = Math.trunc(
     totalHospitalBeds * 0.35 - severeCasesByRequestedTime
   );
-  const casesForICUByRequestedTime = Math.trunc(
+  const casesForICUByRequestedTime = Math.floor(
     0.05 * infectionsByRequestedTime
   );
-  const casesForVentilatorsByRequestedTime = Math.trunc(
+  const casesForVentilatorsByRequestedTime = Math.floor(
     0.02 * infectionsByRequestedTime
   );
 
-  const dollarsInFlight = (infectionsByRequestedTime
+  const dollarsInFlight = Math.floor((
+    infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / 30;
+    * avgDailyIncomePopulation) / 30);
 
   return {
     currentlyInfected: infected,
