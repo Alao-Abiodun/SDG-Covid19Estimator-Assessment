@@ -43,7 +43,7 @@ const impact = ({
 
   const dollarsInFlight = Math.trunc((infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / timeToElapse);
+    * avgDailyIncomePopulation) / timeCalculation);
 
   return {
     currentlyInfected: infected,
@@ -84,7 +84,7 @@ const severeImpact = ({
 
   const dollarsInFlight = Math.trunc((infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / timeToElapse);
+    * avgDailyIncomePopulation) / timeCalculation);
 
   return {
     currentlyInfected: infected,
