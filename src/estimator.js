@@ -1,4 +1,4 @@
-const NofInfectedPeople = (currentlyInfected, periodType, timeToElapse) => {
+const calculateTimeInDays = (periodType, timeToElapse) => {
   if (periodType === 'months') {
     // eslint-disable-next-line no-param-reassign
     timeToElapse *= 30;
@@ -6,22 +6,27 @@ const NofInfectedPeople = (currentlyInfected, periodType, timeToElapse) => {
     // eslint-disable-next-line no-param-reassign
     timeToElapse *= 7;
   }
+  return timeToElapse;
+};
+
+const NofInfectedPeople = (currentlyInfected, timeToElapse) => {
   const doubleFactors = 2 ** Math.floor(timeToElapse / 3);
   return currentlyInfected * doubleFactors;
 };
 
+
 const impact = ({
   reportedCases,
-  periodType,
   timeToElapse,
+  periodType,
   totalHospitalBeds,
   region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
 }) => {
+  const timeCalculation = calculateTimeInDays(periodType, timeToElapse);
   const infected = reportedCases * 10;
   const infectionsByRequestedTime = NofInfectedPeople(
     infected,
-    periodType,
-    timeToElapse
+    timeCalculation
   );
   const severeCasesByRequestedTime = Math.trunc(
     0.15 * infectionsByRequestedTime
@@ -38,7 +43,7 @@ const impact = ({
 
   const dollarsInFlight = Math.trunc((infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / 30);
+    * avgDailyIncomePopulation) / timeToElapse);
 
   return {
     currentlyInfected: infected,
@@ -58,11 +63,11 @@ const severeImpact = ({
   totalHospitalBeds,
   region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
 }) => {
+  const timeCalculation = calculateTimeInDays(periodType, timeToElapse);
   const infected = reportedCases * 50;
   const infectionsByRequestedTime = NofInfectedPeople(
     infected,
-    periodType,
-    timeToElapse
+    timeCalculation
   );
   const severeCasesByRequestedTime = Math.trunc(
     0.15 * infectionsByRequestedTime
@@ -79,7 +84,7 @@ const severeImpact = ({
 
   const dollarsInFlight = Math.trunc((infectionsByRequestedTime
     * avgDailyIncomeInUSD
-    * avgDailyIncomePopulation) / 30);
+    * avgDailyIncomePopulation) / timeToElapse);
 
   return {
     currentlyInfected: infected,
@@ -97,6 +102,5 @@ const covid19ImpactEstimator = (data) => ({
   impact: impact(data),
   severeImpact: severeImpact(data)
 });
-
 
 export default covid19ImpactEstimator;
