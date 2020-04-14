@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 
 // const builder = xml2js.Builder();
 
-const port = 4000 || process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.get('/api/v1/on-covid-19/logs', (req, res, next) => {
   const dataInput = fs.readFileSync(path.join(__dirname, './logged.txt'), { encoding: 'utf-8' });
